@@ -9,11 +9,12 @@ public class Entity
     private string textureName;
     protected Sprite sprite;
     public bool Dead = false;
+    
 
-    /*protected Entity(string textureName)
+    protected Entity(string textureName)
     {
         
-    }*/
+    }
 
     public Vector2f Position
     {
@@ -26,9 +27,9 @@ public class Entity
         get => sprite.GetGlobalBounds(); 
     }
     
-    public bool Solid { get; }
+    public virtual bool Solid { get; }
 
-    public void Create(Scene scene)
+    public virtual void Create(Scene scene)
     {
         // TODO fix this shit
     }

@@ -2,5 +2,8 @@
 
 public class Actor : Entity
 {
-    
+    public Actor() : base("pacman")
+    {
+        
+    }
 }

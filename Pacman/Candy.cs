@@ -2,6 +2,9 @@
 
 public class Candy : Entity
 {
-    
-    
+
+    public Candy() : base("pacman")
+    {
+        
+    }
 }

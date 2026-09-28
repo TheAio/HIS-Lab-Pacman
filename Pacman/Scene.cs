@@ -4,7 +4,7 @@ namespace Pacman;
 
 public class Scene
 {
-    private Entity entity = new();
+    //private Entity entity = new Entity("pacman");
     private AssetManager assets = new();
     private SceneLoader sceneLoader = new();
 
@@ -14,7 +14,7 @@ public class Scene
 
     public void Spawn(Entity entity)
     {
-        this.entity = entity;
+        
     }
 
     public void Clear()
