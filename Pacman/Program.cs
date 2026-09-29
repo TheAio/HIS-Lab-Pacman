@@ -9,6 +9,7 @@ namespace Pacman {
             new VideoMode(828, 900), "Pacman")) 
             {
                 window.Closed += (o, e) => window.Close();
+                window.SetView(new View(new FloatRect(18, 0, 414, 450)));
                 // TODO: Initialize
                 Clock clock = new Clock();
                 Scene scene = new Scene();

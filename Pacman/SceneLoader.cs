@@ -45,13 +45,12 @@ public class SceneLoader
             string parsed = line.Trim();
             foreach (char c in parsed)
             {
-                Vector2f coords = new Vector2f(posX, posY);
+                Vector2f coords = new Vector2f((posX*18), (posY*18));
                 if (c == '#')
                 {
                     Create(c, out Entity created);
                     created.Position = coords;
                     scene.Spawn(created);
-                    Console.WriteLine(created);
                 }
                 //entityAtCoordinates.Add(coords,created);
                 posX++;
