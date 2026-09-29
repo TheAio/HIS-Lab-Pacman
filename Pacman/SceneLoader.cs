@@ -46,16 +46,11 @@ public class SceneLoader
             foreach (char c in parsed)
             {
                 Vector2f coords = new Vector2f(posX, posY);
-                Create(c, out Entity created);
-                created.Position = coords;
-                switch (c)
+                if (c == '#')
                 {
-                    case '#':
-                        
-                        break;
-                    case '.':
-                        
-                        break;
+                    Create(c, out Entity created);
+                    created.Position = coords;
+                    scene.Spawn(created);
                 }
                 //entityAtCoordinates.Add(coords,created);
                 posX++;
