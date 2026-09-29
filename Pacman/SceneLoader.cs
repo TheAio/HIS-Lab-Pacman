@@ -14,7 +14,8 @@ public class SceneLoader
         loaders = new Dictionary<char, Func<Entity>>
         {
             {'#', () => new Wall()},
-            {'c', () => new Candy()}
+            {'c', () => new Candy()},
+            {'.', () => new Coin()}
         };
     }
 
@@ -50,6 +51,7 @@ public class SceneLoader
                 List<char> temporaryListPleaseRemove = new List<char>(); //Todo: seriously remove this!!!!
                 temporaryListPleaseRemove.Add('#');
                 temporaryListPleaseRemove.Add('c');
+                temporaryListPleaseRemove.Add('.');
                 if (temporaryListPleaseRemove.Contains(c))
                 {
                     Create(c, out Entity created);
