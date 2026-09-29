@@ -32,7 +32,7 @@ public class Entity
 
     public virtual void Create(Scene scene)
     {
-        // TODO fix this shit
+        sprite.Texture = scene.Assets.LoadTexture(textureName);
     }
 
     public void Destroy(Scene scene)

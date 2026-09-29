@@ -51,6 +51,7 @@ public class SceneLoader
                     Create(c, out Entity created);
                     created.Position = coords;
                     scene.Spawn(created);
+                    Console.WriteLine(created);
                 }
                 //entityAtCoordinates.Add(coords,created);
                 posX++;
