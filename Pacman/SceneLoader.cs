@@ -13,7 +13,8 @@ public class SceneLoader
     {
         loaders = new Dictionary<char, Func<Entity>>
         {
-            {'#', () => new Wall()}
+            {'#', () => new Wall()},
+            {'c', () => new Candy()}
         };
     }
 
@@ -46,7 +47,10 @@ public class SceneLoader
             foreach (char c in parsed)
             {
                 Vector2f coords = new Vector2f((posX*18), (posY*18));
-                if (c == '#')
+                List<char> temporaryListPleaseRemove = new List<char>(); //Todo: seriously remove this!!!!
+                temporaryListPleaseRemove.Add('#');
+                temporaryListPleaseRemove.Add('c');
+                if (temporaryListPleaseRemove.Contains(c))
                 {
                     Create(c, out Entity created);
                     created.Position = coords;
