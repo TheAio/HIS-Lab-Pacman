@@ -17,6 +17,30 @@ public class Actor : Entity
         
     }
 
+    public override void Update(Scene scene, float deltaTime)
+    {
+        base.Update(scene, deltaTime);
+        if (IsAligned)
+        {
+            if (!wasAligned)
+            {
+                direction = PickDirection(scene);
+            }
+            
+            if (moving)
+            {
+                wasAligned = true;
+            }
+        }
+        else
+        {
+            wasAligned = false;
+        }
+
+        if (!moving) return;
+        Position += To
+    }
+
     public override void Create(Scene scene)
     {
         base.Create(scene);
