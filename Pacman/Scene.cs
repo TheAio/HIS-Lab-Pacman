@@ -24,6 +24,8 @@ public class Scene
 
     public void UpdateAll(float deltaTime)
     {
+        Loader.HandleSceneLoad(this);
+        
         foreach (Entity entity in entities)
         {
             entity.Update(this, deltaTime);

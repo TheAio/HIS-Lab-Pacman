@@ -11,14 +11,21 @@ namespace Pacman {
                 window.Closed += (o, e) => window.Close();
                 // TODO: Initialize
                 Clock clock = new Clock();
+                Scene scene = new Scene();
+                scene.Loader.Load("maze");
+                
                 while (window.IsOpen)
                 {
                     window.DispatchEvents();
                     float deltaTime = clock.Restart().AsSeconds();
                     deltaTime = MathF.Min(deltaTime, 0.01f);
                     // TODO: Updates
+                    scene.UpdateAll(deltaTime);
+                    
                     window.Clear(new Color(223, 246, 245));
                     // TODO: Drawing
+                    scene.RenderAll(window);
+                    
                     window.Display();
                 }
             }

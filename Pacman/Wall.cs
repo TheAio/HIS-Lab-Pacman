@@ -10,17 +10,17 @@ public sealed class Wall : Entity
         
     }
 
-public override bool Solid => true;
+    public override bool Solid => true;
 
-public override void Create(Scene scene)
-{
-    base.Create(scene);
-    sprite.TextureRect = new IntRect(56, 34, 18, 18);
-}
+    public override void Create(Scene scene)
+    {
+        base.Create(scene);
+        sprite.TextureRect = new IntRect(56, 34, 18, 18);
+    }
 
-public override void Update(Scene scene, float deltaTime)
-{
-    
-}
+    public override void Update(Scene scene, float deltaTime)
+    {
+        
+    }
     
 }
