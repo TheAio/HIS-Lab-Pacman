@@ -39,7 +39,7 @@ public class SceneLoader
         int posX = 0;
         int posY = 0;
         //TODO: decide if we should do charAtCoordinates.Clear();
-        foreach (var line in File.ReadLines("maze.txt", Encoding.UTF8))
+        foreach (var line in File.ReadLines("assets/maze.txt", Encoding.UTF8))
         {
             posY++;
             string parsed = line.Trim();
@@ -47,7 +47,17 @@ public class SceneLoader
             {
                 Vector2f coords = new Vector2f(posX, posY);
                 Create(c, out Entity created);
-                entityAtCoordinates.Add(coords,created);
+                created.Position = coords;
+                switch (c)
+                {
+                    case '#':
+                        
+                        break;
+                    case '.':
+                        
+                        break;
+                }
+                //entityAtCoordinates.Add(coords,created);
                 posX++;
             }
             posX = 0;

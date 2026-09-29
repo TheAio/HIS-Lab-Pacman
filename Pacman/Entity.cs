@@ -13,7 +13,8 @@ public class Entity
 
     protected Entity(string textureName)
     {
-        
+        this.textureName = textureName;
+        sprite = new Sprite();
     }
 
     public Vector2f Position
