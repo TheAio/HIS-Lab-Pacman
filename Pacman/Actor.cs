@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using System.Runtime.InteropServices.ObjectiveC;
+using SFML.Graphics;
 using SFML.System;
 
 namespace Pacman;
@@ -38,7 +39,13 @@ public class Actor : Entity
         }
 
         if (!moving) return;
-        Position += To
+        Position += ToVector2(direction) * speed * deltaTime;
+        Position = MathF.Floor(Position.X) switch
+        {
+            < 0 => new Vector2f(432, Position.Y),
+            > 432 => new Vector2f(0, Position.Y),
+            _ => Position
+        };
     }
 
     public override void Create(Scene scene)
@@ -59,12 +66,12 @@ public class Actor : Entity
     protected bool IsFree(Scene scene, int dir)
     {
         Vector2f at = Position + new Vector2f(9, 9);
-        at += 18 * ToVector2f(dir);
+        at += 18 * ToVector2(dir);
         FloatRect controlRectangle = new FloatRect(at.X, at.Y, 1, 1);
         return !scene.FindIntersects(controlRectangle).Any(e => e.Solid);
     }
 
-    protected static Vector2f ToVector2f(int dir)
+    protected static Vector2f ToVector2(int dir)
     {
         switch (dir)
         {
