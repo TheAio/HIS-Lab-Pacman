@@ -22,6 +22,7 @@ public class Actor : Entity
     {
         base.Update(scene, deltaTime);
         Animate(deltaTime);
+        
         if (IsAligned)
         {
             if (!wasAligned)
@@ -40,7 +41,11 @@ public class Actor : Entity
         }
 
         if (!moving) return;
+
+
         Position += ToVector2(direction) * speed * deltaTime;
+        
+        
         Position = MathF.Floor(Position.X) switch
         {
             < 0 => new Vector2f(432, Position.Y),

@@ -9,17 +9,17 @@ public class Ghost : Actor
     Dictionary<bool, IntRect> ghostAnimationIntRects = new();
     Dictionary<bool, IntRect> blueGhostAnimationIntRects = new();
     
-    private float frozenTimer;
+    private float candyTimer;
 
     public override void Update(Scene scene, float deltaTime)
     {
         base.Update(scene, deltaTime);
-        if (frozenTimer > 0)
+        if (candyTimer > 0)
         {
-            frozenTimer -= deltaTime;
-            if (frozenTimer <= 0.01f)
+            candyTimer -= deltaTime;
+            if (candyTimer <= 0.01f)
             {
-                frozenTimer = 0f;
+                candyTimer = 0f;
             }
         }
         // är inte våran implementation bättre optimerad? kolla en if vs att göra beräkning varje gång??
@@ -57,7 +57,7 @@ public class Ghost : Actor
 
     protected override void Animate(float deltaTime)
     {
-        if (frozenTimer > 0f)
+        if (candyTimer > 0f)
         {
             animationTimer += deltaTime;
             if (animationTimer > 0.1f)
@@ -84,7 +84,7 @@ public class Ghost : Actor
     {
         if (e is Pacman)
         {
-            if (frozenTimer == 0f)
+            if (candyTimer == 0f)
             {
                 scene.Events.PublishLoseHealth(1);
             }
@@ -94,6 +94,6 @@ public class Ghost : Actor
 
     private void OnCandyEaten(Scene scene, int amount)
     {
-        frozenTimer += amount;
+        candyTimer += amount;
     }
 }
