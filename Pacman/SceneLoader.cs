@@ -16,8 +16,8 @@ public class SceneLoader
             {'#', () => new Wall()},
             {'c', () => new Candy()},
             {'.', () => new Coin()},
-            {'g', ()  => new Ghost()},
-            {'p', () => new Pacman()},
+            {'g', () => new Ghost()},
+            {'p', () => new Pacman()}
         };
     }
 
@@ -33,10 +33,17 @@ public class SceneLoader
         return false;
     }
 
+    private void CreateGUI(out Entity created)
+    {
+        Func<Entity> createdGui = () => new Gui();
+        created = createdGui();
+    }
+
     public void HandleSceneLoad(Scene scene)
     {
         if (nextScene == "") return;
         scene.Clear();
+        
         //TODO: Load scene file
         
         //TODO: Replace maze.txt with variable
@@ -70,7 +77,12 @@ public class SceneLoader
         
         currentScene = nextScene;
         nextScene = "";
+        CreateGUI(out Entity gui);
+        Console.WriteLine(gui);
+        scene.Spawn(gui);
     }
+    
+    
     
     public void Load(string scene) => nextScene = scene;
     public void Reload() => nextScene = currentScene;

@@ -42,11 +42,11 @@ public class Pacman : Actor
             return dir;
         }
 
-        if (!IsFree(scene, dir))
+        if (!IsFree(scene, direction))
         {
             moving = false;
         }
-        return dir;
+        return direction;
     }
 }
 
