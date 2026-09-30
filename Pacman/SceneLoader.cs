@@ -17,6 +17,7 @@ public class SceneLoader
             {'c', () => new Candy()},
             {'.', () => new Coin()},
             {'g', ()  => new Ghost()},
+            {'p', () => new Pacman()},
         };
     }
 
@@ -54,6 +55,7 @@ public class SceneLoader
                 temporaryListPleaseRemove.Add('c');
                 temporaryListPleaseRemove.Add('.');
                 temporaryListPleaseRemove.Add('g');
+                temporaryListPleaseRemove.Add('p');
                 if (temporaryListPleaseRemove.Contains(c))
                 {
                     Create(c, out Entity created);
