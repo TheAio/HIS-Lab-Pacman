@@ -8,7 +8,7 @@ public class Gui : Entity
 
     private Text scoreText = new();
     private int maxHealth = 3;
-    private int currentHealth = 3;
+    private int currentHealth;
     private int currentScore;
     
     public Gui() : base("pacman")
@@ -23,6 +23,8 @@ public class Gui : Entity
         sprite.TextureRect = new IntRect(90, 54, 18, 18);
         scoreText.DisplayedString = "Score";
         currentHealth = maxHealth;
+        
+        scene.LoseHealth += OnLoseHealth;
     }
 
     public override void Render(RenderTarget target)
@@ -42,5 +44,20 @@ public class Gui : Entity
         scoreText.Position = new Vector2f(414 - scoreText.GetGlobalBounds().Width, 396);
         target.Draw(sprite);
         target.Draw(scoreText);
+    }
+    
+    public override void Destroy(Scene scene)
+    {
+        base.Destroy(scene);
+        scene.LoseHealth -= OnLoseHealth;
+    }
+
+    private void OnLoseHealth(Scene scene, int amount)
+    {
+        currentHealth -= amount;
+        if (currentHealth <= 0)
+        {
+            scene.Loader.Reload();
+        }
     }
 }

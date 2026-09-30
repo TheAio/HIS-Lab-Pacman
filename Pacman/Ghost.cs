@@ -46,7 +46,6 @@ public class Ghost : Actor
     {
         if (e is Pacman)
         {
-            Console.WriteLine("adasdasdasd");
             scene.PublishLoseHealth(1);
             Reset();
         }

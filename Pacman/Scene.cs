@@ -18,7 +18,7 @@ public class Scene
     private int scoreGained;
     private int loseHealth;
     public void PublishGainScore(int amount) => scoreGained += amount;
-    public void PublishLoseHealth(int amount) => loseHealth -= amount;
+    public void PublishLoseHealth(int amount) => loseHealth += amount;
 
     public void Spawn(Entity entity)
     {
