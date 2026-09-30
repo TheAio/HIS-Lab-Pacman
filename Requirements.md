@@ -32,7 +32,7 @@
 - [ ] All of the above elements has a functional graphical representation
 - [ ] At least one of the bonus features
 	- [ ] Animate the ghosts,
-		- [ ] and have pacman face in the movement direction
+		- [x] and have pacman face in the movement direction
 	- [ ] When ghosts and player is reset to start position, make them invulnerable 
 		- [ ] and unable to move for a set amount of time
 	- [ ] Add a highscore that is shown when the game is lost (health = 0) 

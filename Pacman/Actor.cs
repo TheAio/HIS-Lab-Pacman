@@ -21,6 +21,7 @@ public class Actor : Entity
     public override void Update(Scene scene, float deltaTime)
     {
         base.Update(scene, deltaTime);
+        Animate(deltaTime);
         if (IsAligned)
         {
             if (!wasAligned)
@@ -92,5 +93,10 @@ public class Actor : Entity
     protected virtual int PickDirection(Scene scene)
     {
         return 0;
+    }
+
+    protected virtual void Animate(float deltaTime)
+    {
+        
     }
 }
