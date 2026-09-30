@@ -12,7 +12,19 @@ public class Pacman : Actor
     private float animationTimer = 0f;
     private bool pacmanState = false;
     private int dir = 1;
-    
+
+    public override FloatRect Bounds
+    {
+        get
+        {
+            var bounds = base.Bounds;
+            //bounds.Left += 3;
+            bounds.Width = 5;
+            //bounds.Top += 3;
+            bounds.Height = 5;
+            return bounds;
+        }  
+    }
     protected override void Animate (float deltaTime)
     {
         Dictionary<int, IntRect> currentStateIntRects;
