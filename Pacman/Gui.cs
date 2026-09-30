@@ -42,7 +42,6 @@ public class Gui : Entity
         }
         scoreText.DisplayedString = $"Score: {currentScore}";
         scoreText.Position = new Vector2f(414 - scoreText.GetGlobalBounds().Width, 396);
-        target.Draw(sprite);
         target.Draw(scoreText);
     }
     
