@@ -30,8 +30,8 @@
 - [x] Is loaded from a text-file
 ### Others and bonus
 - [ ] All of the above elements has a functional graphical representation
-- [ ] At least one of the bonus features
-	- [ ] Animate the ghosts,
+- [x] At least one of the bonus features
+	- [x] Animate the ghosts,
 		- [x] and have pacman face in the movement direction
 	- [ ] When ghosts and player is reset to start position, make them invulnerable 
 		- [ ] and unable to move for a set amount of time

@@ -4,13 +4,18 @@ namespace Pacman;
 
 public class Ghost : Actor
 {
+    private float animationTimer = 0f;
+    private bool ghostAnimationState = false;
+    Dictionary<bool, IntRect> ghostAnimationIntRects = new();
+    
     public override void Create(Scene scene)
     {
         direction = -1;
         speed = 100.0f;
         moving = true;
         base.Create(scene);
-        sprite.TextureRect = new IntRect(36, 0, 18, 18);
+        ghostAnimationIntRects.Add(false,new IntRect(36, 0, 18, 18));
+        ghostAnimationIntRects.Add(true,new IntRect(54, 0, 18, 18));
     }
 
     protected override int PickDirection(Scene scene)
@@ -24,5 +29,16 @@ public class Ghost : Actor
         }
         int r = new Random().Next(0, validMoves.Count);
         return validMoves[r];
+    }
+
+    protected override void Animate(float deltaTime)
+    {
+        animationTimer += deltaTime;
+        if (animationTimer > 0.1f)
+        {
+            animationTimer = 0f;
+            ghostAnimationState = !ghostAnimationState;
+        }
+        sprite.TextureRect = ghostAnimationIntRects[ghostAnimationState];
     }
 }
