@@ -25,6 +25,7 @@ public class Gui : Entity
         currentHealth = maxHealth;
         
         scene.LoseHealth += OnLoseHealth;
+        scene.GainScore += OnGainScore;
     }
 
     public override void Render(RenderTarget target)
@@ -58,5 +59,10 @@ public class Gui : Entity
         {
             scene.Loader.Reload();
         }
+    }
+
+    private void OnGainScore(Scene scene, int amount)
+    {
+        currentScore += amount;
     }
 }

@@ -105,5 +105,15 @@ public class Pacman : Actor
     {
         Reset();
     }
+    
+    protected override void CollideWith(Scene scene, Entity e)
+    {
+        if (e is Coin)
+        {
+            Console.WriteLine("asdasdasd");
+            scene.PublishGainScore(100);
+            e.Dead =  true;
+        }
+    }
 }
 
