@@ -14,9 +14,13 @@ public class Coin : Entity
         base.Create(scene);
         sprite.TextureRect = new IntRect(36, 36, 18, 18);
     }
-
-    public override void Update(Scene scene, float deltaTime)
+    
+    protected override void CollideWith(Scene scene, Entity e)
     {
-        
+        if (e is Pacman)
+        {
+            scene.PublishGainScore(100);
+            Dead =  true;
+        }
     }
 }

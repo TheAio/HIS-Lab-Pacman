@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using System.Runtime.CompilerServices;
+using SFML.Graphics;
 
 namespace Pacman;
 
@@ -14,11 +15,14 @@ public class Scene
     
     public event ValueChangedEvent GainScore;
     public event ValueChangedEvent LoseHealth;
+    public event ValueChangedEvent CandyEaten;
     
     private int scoreGained;
     private int loseHealth;
+    private int candyEaten;
     public void PublishGainScore(int amount) => scoreGained += amount;
     public void PublishLoseHealth(int amount) => loseHealth += amount;
+    public void PublishCandyEaten(int amount) => candyEaten += amount;
 
     public void Spawn(Entity entity)
     {
@@ -54,6 +58,12 @@ public class Scene
             {
                 LoseHealth?.Invoke(this, loseHealth);
                 loseHealth = 0;
+            }
+
+            if (candyEaten != 0)
+            {
+                CandyEaten?.Invoke(this, candyEaten);
+                candyEaten = 0;
             }
         }
     }
