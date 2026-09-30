@@ -7,15 +7,39 @@ public class Ghost : Actor
     private float animationTimer = 0f;
     private bool ghostAnimationState = false;
     Dictionary<bool, IntRect> ghostAnimationIntRects = new();
+    Dictionary<bool, IntRect> blueGhostAnimationIntRects = new();
     
+    private float frozenTimer;
+
+    public override void Update(Scene scene, float deltaTime)
+    {
+        base.Update(scene, deltaTime);
+        if (frozenTimer > 0)
+        {
+            frozenTimer -= deltaTime;
+            if (frozenTimer <= 0.01f)
+            {
+                frozenTimer = 0f;
+            }
+        }
+        // är inte våran implementation bättre optimerad? kolla en if vs att göra beräkning varje gång??
+        //frozenTimer = MathF.Max(frozenTimer - deltaTime, 0.0f);
+    }
+
     public override void Create(Scene scene)
     {
         direction = -1;
         speed = 100.0f;
         moving = true;
         base.Create(scene);
+        
         ghostAnimationIntRects.Add(false,new IntRect(36, 0, 18, 18));
         ghostAnimationIntRects.Add(true,new IntRect(54, 0, 18, 18));
+
+        blueGhostAnimationIntRects.Add(false,new IntRect(36, 18, 18, 18));
+        blueGhostAnimationIntRects.Add(true,new IntRect(54, 18, 18, 18));
+        
+        scene.CandyEaten += OnCandyEaten;
     }
 
     protected override int PickDirection(Scene scene)
@@ -33,21 +57,43 @@ public class Ghost : Actor
 
     protected override void Animate(float deltaTime)
     {
-        animationTimer += deltaTime;
-        if (animationTimer > 0.1f)
+        if (frozenTimer > 0f)
         {
-            animationTimer = 0f;
-            ghostAnimationState = !ghostAnimationState;
+            animationTimer += deltaTime;
+            if (animationTimer > 0.1f)
+            {
+                animationTimer = 0f;
+                ghostAnimationState = !ghostAnimationState;
+            }
+            sprite.TextureRect = blueGhostAnimationIntRects[ghostAnimationState];
         }
-        sprite.TextureRect = ghostAnimationIntRects[ghostAnimationState];
+        else
+        {
+            animationTimer += deltaTime;
+            if (animationTimer > 0.1f)
+            {
+                animationTimer = 0f;
+                ghostAnimationState = !ghostAnimationState;
+            }
+            sprite.TextureRect = ghostAnimationIntRects[ghostAnimationState];
+        }
+
     }
 
     protected override void CollideWith(Scene scene, Entity e)
     {
         if (e is Pacman)
         {
-            scene.PublishLoseHealth(1);
+            if (frozenTimer == 0f)
+            {
+                scene.PublishLoseHealth(1);
+            }
             Reset();
         }
+    }
+
+    private void OnCandyEaten(Scene scene, int amount)
+    {
+        frozenTimer += amount;
     }
 }

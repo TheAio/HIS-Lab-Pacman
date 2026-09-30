@@ -57,6 +57,7 @@ public class Gui : Entity
         currentHealth -= amount;
         if (currentHealth <= 0)
         {
+            DontDestroyOnLoad = false;
             scene.Loader.Reload();
         }
     }
@@ -64,5 +65,10 @@ public class Gui : Entity
     private void OnGainScore(Scene scene, int amount)
     {
         currentScore += amount;
+        if (!scene.FindByType<Coin>(out _))
+        {
+            DontDestroyOnLoad = true;
+            scene.Loader.Reload();
+        }
     }
 }

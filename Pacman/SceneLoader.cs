@@ -6,6 +6,7 @@ namespace Pacman;
 public class SceneLoader
 {
     private readonly Dictionary<char, Func<Entity>> loaders;
+    private HashSet<Gui> guis;
     private string currentScene = "", nextScene = "";
 
     public SceneLoader()
@@ -32,11 +33,11 @@ public class SceneLoader
         return false;
     }
 
-    private void CreateGUI(out Entity created)
+    /*private void CreateGUI(out Entity created)
     {
         Func<Entity> createdGui = () => new Gui();
         created = createdGui();
-    }
+    }*/
 
     public void HandleSceneLoad(Scene scene)
     {
@@ -68,8 +69,14 @@ public class SceneLoader
         
         currentScene = nextScene;
         nextScene = "";
-        CreateGUI(out Entity gui);
-        scene.Spawn(gui);
+        /*CreateGUI(out Entity gui);*/
+
+        if (!scene.FindByType<Gui>(out _))
+        {
+            Gui gui = new Gui();
+            scene.Spawn(gui);
+        }
+
         // scene.Spawn(new Gui()); mby?
     }
     

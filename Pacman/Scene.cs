@@ -35,8 +35,11 @@ public class Scene
         for (int i = entities.Count - 1; i >= 0; i--)
         {
             Entity entity = entities[i];
-            entities.RemoveAt(i);
-            entity.Destroy(this);
+            if (!entity.DontDestroyOnLoad)
+            {
+                entities.RemoveAt(i);
+                entity.Destroy(this);
+            }
         }
     }
 
@@ -82,7 +85,14 @@ public class Scene
 
     public bool FindByType<T>(out T found) where T : Entity
     {
-        //TODO FIX THIS SHIT AND LOOK AT THIS SHIT
+        foreach (Entity entity in entities)
+        {
+            if (!entity.Dead && entity is T typed)
+            {
+                found = typed;
+                return true;
+            }
+        }
         found = default(T);
         return false;
     }

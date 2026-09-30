@@ -22,7 +22,7 @@ public class Candy : Entity
     {
         if (e is Pacman)
         {
-            scene.PublishCandyEaten(1);
+            scene.PublishCandyEaten(5);
             Dead = true;
         }
     }
