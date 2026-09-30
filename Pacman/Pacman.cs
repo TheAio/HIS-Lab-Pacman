@@ -8,6 +8,7 @@ public class Pacman : Actor
 {
     private Dictionary<int, IntRect> pacmanStateAIntRects = new();
     private Dictionary<int, IntRect> pacmanStateBIntRects = new();
+    
     private float animationTimer = 0f;
     private bool pacmanState = false;
     private int dir = 1;
@@ -55,6 +56,8 @@ public class Pacman : Actor
         pacmanStateBIntRects.Add(2, new IntRect(18,36,18,18));
         pacmanStateAIntRects.Add(3, new IntRect(0,18,18,18)); // Up
         pacmanStateBIntRects.Add(3, new IntRect(18,18,18,18));
+
+        scene.LoseHealth += OnLoseHealth;
     }
 
     protected override int PickDirection(Scene scene)
@@ -90,6 +93,17 @@ public class Pacman : Actor
             moving = false;
         }
         return direction;
+    }
+
+    public override void Destroy(Scene scene)
+    {
+        base.Destroy(scene);
+        scene.LoseHealth -= OnLoseHealth;
+    }
+
+    private void OnLoseHealth(Scene scene, int amount)
+    {
+        Reset();
     }
 }
 

@@ -35,7 +35,7 @@ public class Entity
         sprite.Texture = scene.Assets.LoadTexture(textureName);
     }
 
-    public void Destroy(Scene scene)
+    public virtual void Destroy(Scene scene)
     {
         
     }
@@ -53,7 +53,7 @@ public class Entity
         target.Draw(sprite);
     }
 
-    protected void CollideWith(Scene scene, Entity otherEntity)
+    protected virtual void CollideWith(Scene scene, Entity otherEntity)
     {
         
     }

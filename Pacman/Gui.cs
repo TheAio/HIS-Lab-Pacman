@@ -7,8 +7,8 @@ public class Gui : Entity
 {
 
     private Text scoreText = new();
-    private int maxHealth;
-    private int currentHealth;
+    private int maxHealth = 3;
+    private int currentHealth = 3;
     private int currentScore;
     
     public Gui() : base("pacman")
@@ -27,6 +27,7 @@ public class Gui : Entity
 
     public override void Render(RenderTarget target)
     {
+        
         sprite.Position = new Vector2f(36, 396);
         for (int i = 0; i < maxHealth; i++)
         {
@@ -39,6 +40,7 @@ public class Gui : Entity
         }
         scoreText.DisplayedString = $"Score: {currentScore}";
         scoreText.Position = new Vector2f(414 - scoreText.GetGlobalBounds().Width, 396);
+        target.Draw(sprite);
         target.Draw(scoreText);
     }
 }

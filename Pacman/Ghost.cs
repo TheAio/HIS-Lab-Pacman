@@ -41,4 +41,14 @@ public class Ghost : Actor
         }
         sprite.TextureRect = ghostAnimationIntRects[ghostAnimationState];
     }
+
+    protected override void CollideWith(Scene scene, Entity e)
+    {
+        if (e is Pacman)
+        {
+            Console.WriteLine("adasdasdasd");
+            scene.PublishLoseHealth(1);
+            Reset();
+        }
+    }
 }

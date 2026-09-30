@@ -11,6 +11,14 @@ public class Scene
     private List<Entity> entities = new();
     public SceneLoader Loader { get => sceneLoader; }
     public AssetManager Assets { get => assets; }
+    
+    public event ValueChangedEvent GainScore;
+    public event ValueChangedEvent LoseHealth;
+    
+    private int scoreGained;
+    private int loseHealth;
+    public void PublishGainScore(int amount) => scoreGained += amount;
+    public void PublishLoseHealth(int amount) => loseHealth -= amount;
 
     public void Spawn(Entity entity)
     {
@@ -36,6 +44,17 @@ public class Scene
         {
             Entity entity = entities[i];
             entity.Update(this, deltaTime);
+            if (scoreGained != 0)
+            {
+                GainScore?.Invoke(this, scoreGained);
+                scoreGained = 0;
+            }
+
+            if (loseHealth != 0)
+            {
+                LoseHealth?.Invoke(this, loseHealth);
+                loseHealth = 0;
+            }
         }
     }
 
@@ -72,4 +91,8 @@ public class Scene
             }
         }
     }
+    
+    
 }
+
+public delegate void ValueChangedEvent(Scene scene, int value);
