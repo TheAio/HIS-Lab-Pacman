@@ -6,6 +6,14 @@ namespace Pacman;
 
 public class Pacman : Actor
 {
+    int dir = -1;
+    Dictionary<int, Dictionary<bool,IntRect>> pacmanStates = new();
+
+    public override void Update(Scene scene, float deltaTime)
+    {
+        
+    }
+    
     public override void Create(Scene scene)
     {
         speed = 100f;
@@ -15,7 +23,7 @@ public class Pacman : Actor
 
     protected override int PickDirection(Scene scene)
     {
-        int dir = direction;
+        dir = direction;
         if (Keyboard.IsKeyPressed(Right))
         {
             dir = 0;
