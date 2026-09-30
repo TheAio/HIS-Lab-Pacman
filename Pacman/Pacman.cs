@@ -69,7 +69,7 @@ public class Pacman : Actor
         pacmanStateAIntRects.Add(3, new IntRect(0,18,18,18)); // Up
         pacmanStateBIntRects.Add(3, new IntRect(18,18,18,18));
 
-        scene.LoseHealth += OnLoseHealth;
+        scene.Events.LoseHealth += OnLoseHealth;
     }
 
     protected override int PickDirection(Scene scene)
@@ -110,7 +110,7 @@ public class Pacman : Actor
     public override void Destroy(Scene scene)
     {
         base.Destroy(scene);
-        scene.LoseHealth -= OnLoseHealth;
+        scene.Events.LoseHealth -= OnLoseHealth;
     }
 
     private void OnLoseHealth(Scene scene, int amount)

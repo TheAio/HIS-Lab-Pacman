@@ -28,8 +28,8 @@ public class Gui : Entity
         scoreText.DisplayedString = "Score";
         currentHealth = maxHealth;
         
-        scene.LoseHealth += OnLoseHealth;
-        scene.GainScore += OnGainScore;
+        scene.Events.LoseHealth += OnLoseHealth;
+        scene.Events.GainScore += OnGainScore;
     }
 
     public override void Render(RenderTarget target)
@@ -53,7 +53,7 @@ public class Gui : Entity
     public override void Destroy(Scene scene)
     {
         base.Destroy(scene);
-        scene.LoseHealth -= OnLoseHealth;
+        scene.Events.LoseHealth -= OnLoseHealth;
     }
 
     private void OnLoseHealth(Scene scene, int amount)

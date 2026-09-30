@@ -19,7 +19,7 @@ public class Coin : Entity
     {
         if (e is Pacman)
         {
-            scene.PublishGainScore(100);
+            scene.Events.PublishGainScore(100);
             Dead =  true;
         }
     }

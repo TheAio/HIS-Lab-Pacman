@@ -39,7 +39,7 @@ public class Ghost : Actor
         blueGhostAnimationIntRects.Add(false,new IntRect(36, 18, 18, 18));
         blueGhostAnimationIntRects.Add(true,new IntRect(54, 18, 18, 18));
         
-        scene.CandyEaten += OnCandyEaten;
+        scene.Events.CandyEaten += OnCandyEaten;
     }
 
     protected override int PickDirection(Scene scene)
@@ -86,7 +86,7 @@ public class Ghost : Actor
         {
             if (frozenTimer == 0f)
             {
-                scene.PublishLoseHealth(1);
+                scene.Events.PublishLoseHealth(1);
             }
             Reset();
         }

@@ -8,21 +8,14 @@ public class Scene
     //private Entity entity = new Entity("pacman");
     private AssetManager assets = new();
     private SceneLoader sceneLoader = new();
-
+    private EventManager events = new();
+    
     private List<Entity> entities = new();
     public SceneLoader Loader { get => sceneLoader; }
     public AssetManager Assets { get => assets; }
+    public EventManager Events { get => events; }
     
-    public event ValueChangedEvent GainScore;
-    public event ValueChangedEvent LoseHealth;
-    public event ValueChangedEvent CandyEaten;
-    
-    private int scoreGained;
-    private int loseHealth;
-    private int candyEaten;
-    public void PublishGainScore(int amount) => scoreGained += amount;
-    public void PublishLoseHealth(int amount) => loseHealth += amount;
-    public void PublishCandyEaten(int amount) => candyEaten += amount;
+
 
     public void Spawn(Entity entity)
     {
@@ -46,28 +39,12 @@ public class Scene
     public void UpdateAll(float deltaTime)
     {
         Loader.HandleSceneLoad(this);
+        events.UpdateEvents(this);
         
         for (int i = entities.Count - 1; i >= 0; i--)
         {
             Entity entity = entities[i];
             entity.Update(this, deltaTime);
-            if (scoreGained != 0)
-            {
-                GainScore?.Invoke(this, scoreGained);
-                scoreGained = 0;
-            }
-
-            if (loseHealth != 0)
-            {
-                LoseHealth?.Invoke(this, loseHealth);
-                loseHealth = 0;
-            }
-
-            if (candyEaten != 0)
-            {
-                CandyEaten?.Invoke(this, candyEaten);
-                candyEaten = 0;
-            }
         }
     }
 
@@ -114,5 +91,3 @@ public class Scene
     
     
 }
-
-public delegate void ValueChangedEvent(Scene scene, int value);
