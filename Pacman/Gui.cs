@@ -20,6 +20,10 @@ public class Gui : Entity
     {
         base.Create(scene);
         scoreText.Font = new Font(scene.Assets.LoadFont("pixel-font"));
+        scoreText.Scale = new Vector2f(0.5f, 0.5f);
+        scoreText.CharacterSize = 50;
+        scoreText.Color = Color.Black;
+        
         sprite.TextureRect = new IntRect(90, 54, 18, 18);
         scoreText.DisplayedString = "Score";
         currentHealth = maxHealth;
