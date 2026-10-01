@@ -10,6 +10,7 @@ public class Gui : Entity
     private int maxHealth = 3;
     private int currentHealth;
     private int currentScore;
+    const string highScoreFilePath = "highscore.txt";
     
     public Gui() : base("pacman")
     {
@@ -52,10 +53,44 @@ public class Gui : Entity
     
     public override void Destroy(Scene scene)
     {
+        CompareAndSetHighScore(currentScore);
         base.Destroy(scene);
         scene.Events.LoseHealth -= OnLoseHealth;
     }
 
+    
+    public bool CompareAndSetHighScore(int score)
+    {
+        Console.WriteLine(GetHighScore());
+        if (score > GetHighScore())
+        {
+            WriteToHighScoreFile(score);
+            return true;
+        }
+        return false;
+    }
+    private int GetHighScore()
+    {
+        if (File.Exists(highScoreFilePath))
+        {
+            string rawScoreText = File.ReadAllText(highScoreFilePath);
+            int score = int.Parse(rawScoreText);
+            return score;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    private void WriteToHighScoreFile(int score)
+    {
+        if (!File.Exists(highScoreFilePath))
+        {
+            File.Create(highScoreFilePath).Close();
+        }
+        File.WriteAllText(highScoreFilePath, score.ToString());
+    }
+    
     private void OnLoseHealth(Scene scene, int amount)
     {
         currentHealth -= amount;
