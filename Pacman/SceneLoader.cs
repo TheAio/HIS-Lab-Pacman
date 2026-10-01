@@ -69,15 +69,12 @@ public class SceneLoader
         
         currentScene = nextScene;
         nextScene = "";
-        /*CreateGUI(out Entity gui);*/
 
         if (!scene.FindByType<Gui>(out _))
         {
             Gui gui = new Gui();
             scene.Spawn(gui);
         }
-
-        // scene.Spawn(new Gui()); mby?
     }
     
     

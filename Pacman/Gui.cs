@@ -62,6 +62,7 @@ public class Gui : Entity
         if (currentHealth <= 0)
         {
             DontDestroyOnLoad = false;
+            scene.isGameStarted = false;
             scene.Loader.Reload();
         }
     }

@@ -30,14 +30,15 @@ public class Pacman : Actor
     public override void Update(Scene scene, float deltaTime)
     {
         base.Update(scene, deltaTime);
+        
         if (freezeTimer > 0f)
         {
-            freezeTimer /= 2; // we are ahere
             freezeTimer -= deltaTime;
             moving = false;
-            if (freezeTimer <= 0.001f)
+            if (freezeTimer <= 0.05f)
             {
                 freezeTimer = 0f;
+                moving = true;
             }
         }
     }

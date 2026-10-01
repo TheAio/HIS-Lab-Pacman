@@ -6,6 +6,7 @@ public class Ghost : Actor
 {
     private float animationTimer = 0f;
     private bool ghostAnimationState = false;
+    private float freezeTimer = 0f;
     Dictionary<bool, IntRect> ghostAnimationIntRects = new();
     Dictionary<bool, IntRect> blueGhostAnimationIntRects = new();
     
@@ -20,6 +21,18 @@ public class Ghost : Actor
             if (candyTimer <= 0.01f)
             {
                 candyTimer = 0f;
+            }
+        }
+        
+        if (freezeTimer > 0f)
+        {
+            freezeTimer -= deltaTime;
+            Reset();
+            moving = false;
+            if (freezeTimer <= 0.05f)
+            {
+                moving = true;
+                freezeTimer = 0f;
             }
         }
         // är inte våran implementation bättre optimerad? kolla en if vs att göra beräkning varje gång??
@@ -40,6 +53,7 @@ public class Ghost : Actor
         blueGhostAnimationIntRects.Add(true,new IntRect(54, 18, 18, 18));
         
         scene.Events.CandyEaten += OnCandyEaten;
+        scene.Events.ResetEvent += OnFreeze;
     }
 
     protected override int PickDirection(Scene scene)
@@ -90,6 +104,17 @@ public class Ghost : Actor
             }
             Reset();
         }
+    }
+    
+    private void OnFreeze(Scene scene, int amount)
+    {
+        freezeTimer += amount;
+    }
+
+    public override void Destroy(Scene scene)
+    {
+        base.Destroy(scene);
+        scene.Events.CandyEaten -= OnCandyEaten;
     }
 
     private void OnCandyEaten(Scene scene, int amount)

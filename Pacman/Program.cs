@@ -13,6 +13,7 @@ namespace Pacman {
                 // TODO: Initialize
                 Clock clock = new Clock();
                 Scene scene = new Scene();
+                float debugTimer = 0;
                 scene.Loader.Load("maze");
                 
                 while (window.IsOpen)
@@ -28,6 +29,17 @@ namespace Pacman {
                     scene.RenderAll(window);
                     
                     window.Display();
+                    
+                    //debug keybind to lose 1hp
+                    debugTimer += deltaTime;
+                    if (Keyboard.IsKeyPressed(Keyboard.Key.C))
+                    {
+                        if (debugTimer > 0.5f)
+                        {
+                            scene.Events.PublishLoseHealth(1);
+                            debugTimer = 0;
+                        }
+                    }
                 }
             }
         }

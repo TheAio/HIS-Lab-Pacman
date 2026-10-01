@@ -16,7 +16,7 @@ public class Scene
     public EventManager Events { get => events; }
 
     private float frozenResetTimer = 1f;
-    
+    public bool isGameStarted = false;
 
 
     public void Spawn(Entity entity)
@@ -42,6 +42,12 @@ public class Scene
     {
         Loader.HandleSceneLoad(this);
         events.UpdateEvents(this);
+
+        if (!isGameStarted)
+        {
+            Events.PublishResetEvent(1);
+            isGameStarted = true;
+        }
         
         frozenResetTimer = MathF.Max(frozenResetTimer - deltaTime, 0.0f);
         
