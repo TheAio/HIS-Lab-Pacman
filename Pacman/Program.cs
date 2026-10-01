@@ -2,6 +2,8 @@
 using SFML.System;
 using SFML.Window;
 using System;
+using System.Runtime.CompilerServices;
+
 namespace Pacman {
     class Program {
         static void Main(string[] args) {

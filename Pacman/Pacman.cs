@@ -60,13 +60,13 @@ public class Pacman : Actor
         {
             currentStateIntRects = pacmanStateAIntRects;
         }
-        if (dir >= 0 && dir <= 3)
+        if (direction >= 0 && direction <= 3)
         {
-            sprite.TextureRect = currentStateIntRects[dir];
+            sprite.TextureRect = currentStateIntRects[direction];
         }
         else
         {
-            Console.WriteLine($"Illegal pacman direction {dir} in Pacman.cs");
+            Console.WriteLine($"Illegal pacman direction {direction} in Pacman.cs");
             sprite.TextureRect = currentStateIntRects[0];
         }
     }
@@ -75,16 +75,15 @@ public class Pacman : Actor
     {
         speed = 100f;
         base.Create(scene);
-        //Because the tutorial guided us to use 3 as up and 1 as down, we have to use this solution,
-        //but ideally we could have used a for loop, if 1 was up and 3 was down
-        pacmanStateAIntRects.Add(0, new IntRect(0,0,18,18)); // Right
-        pacmanStateBIntRects.Add(0, new IntRect(18,0,18,18));
-        pacmanStateAIntRects.Add(1, new IntRect(0,54,18,18)); // Down
-        pacmanStateBIntRects.Add(1, new IntRect(18,54,18,18));
-        pacmanStateAIntRects.Add(2, new IntRect(0,36,18,18)); // Left
-        pacmanStateBIntRects.Add(2, new IntRect(18,36,18,18));
-        pacmanStateAIntRects.Add(3, new IntRect(0,18,18,18)); // Up
-        pacmanStateBIntRects.Add(3, new IntRect(18,18,18,18));
+        const int textureSize = 18;
+        pacmanStateAIntRects.Add(0, new IntRect(0,0,textureSize,textureSize)); // Right
+        pacmanStateBIntRects.Add(0, new IntRect(18,0,textureSize,textureSize));
+        pacmanStateAIntRects.Add(1, new IntRect(0,54,textureSize,textureSize)); // Down
+        pacmanStateBIntRects.Add(1, new IntRect(18,54,textureSize,textureSize));
+        pacmanStateAIntRects.Add(2, new IntRect(0,36,textureSize,textureSize)); // Left
+        pacmanStateBIntRects.Add(2, new IntRect(18,36,textureSize,textureSize));
+        pacmanStateAIntRects.Add(3, new IntRect(0,18,textureSize,textureSize)); // Up
+        pacmanStateBIntRects.Add(3, new IntRect(18,18,textureSize,textureSize));
 
         scene.Events.LoseHealth += OnLoseHealth;
         scene.Events.ResetEvent += OnFreeze;

@@ -12,6 +12,7 @@ public class Actor : Entity
     protected bool moving = false;
     protected Vector2f originalPosition = new(0, 0);
     protected float originalSpeed = 0;
+    private float animationDeltaTime = 0f;
     
     protected Actor() : base("pacman")
     {
@@ -21,7 +22,7 @@ public class Actor : Entity
     public override void Update(Scene scene, float deltaTime)
     {
         base.Update(scene, deltaTime);
-        Animate(deltaTime);
+        animationDeltaTime = deltaTime;
         
         if (IsAligned)
         {
@@ -54,6 +55,11 @@ public class Actor : Entity
         };
     }
 
+    public override void Render(RenderTarget renderTarget)
+    {
+        base.Render(renderTarget);
+        Animate(animationDeltaTime);
+    }
     public override void Create(Scene scene)
     {
         base.Create(scene);
