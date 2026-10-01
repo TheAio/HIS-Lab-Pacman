@@ -10,6 +10,7 @@ public class Pacman : Actor
     private Dictionary<int, IntRect> pacmanStateBIntRects = new();
     
     private float animationTimer = 0f;
+    private float freezeTimer = 0f;
     private bool pacmanState = false;
     private int dir = 1;
 
@@ -24,6 +25,21 @@ public class Pacman : Actor
             bounds.Height = 5;
             return bounds;
         }  
+    }
+
+    public override void Update(Scene scene, float deltaTime)
+    {
+        base.Update(scene, deltaTime);
+        if (freezeTimer > 0f)
+        {
+            freezeTimer /= 2; // we are ahere
+            freezeTimer -= deltaTime;
+            moving = false;
+            if (freezeTimer <= 0.001f)
+            {
+                freezeTimer = 0f;
+            }
+        }
     }
     protected override void Animate (float deltaTime)
     {
@@ -70,6 +86,7 @@ public class Pacman : Actor
         pacmanStateBIntRects.Add(3, new IntRect(18,18,18,18));
 
         scene.Events.LoseHealth += OnLoseHealth;
+        scene.Events.ResetEvent += OnFreeze;
     }
 
     protected override int PickDirection(Scene scene)
@@ -107,15 +124,22 @@ public class Pacman : Actor
         return direction;
     }
 
+    private void OnFreeze(Scene scene, int amount)
+    {
+        freezeTimer += amount;
+    }
+
     public override void Destroy(Scene scene)
     {
         base.Destroy(scene);
         scene.Events.LoseHealth -= OnLoseHealth;
+        scene.Events.ResetEvent -= OnFreeze;
     }
 
     private void OnLoseHealth(Scene scene, int amount)
     {
         Reset();
+        scene.Events.PublishResetEvent(1);
     }
 }
 

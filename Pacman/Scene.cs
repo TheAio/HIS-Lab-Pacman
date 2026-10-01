@@ -14,6 +14,8 @@ public class Scene
     public SceneLoader Loader { get => sceneLoader; }
     public AssetManager Assets { get => assets; }
     public EventManager Events { get => events; }
+
+    private float frozenResetTimer = 1f;
     
 
 
@@ -40,6 +42,8 @@ public class Scene
     {
         Loader.HandleSceneLoad(this);
         events.UpdateEvents(this);
+        
+        frozenResetTimer = MathF.Max(frozenResetTimer - deltaTime, 0.0f);
         
         for (int i = entities.Count - 1; i >= 0; i--)
         {
@@ -88,6 +92,4 @@ public class Scene
             }
         }
     }
-    
-    
 }
