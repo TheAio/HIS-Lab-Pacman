@@ -34,7 +34,7 @@ namespace Pacman {
                     
                     //debug keybind to lose 1hp
                     debugTimer += deltaTime;
-                    if (Keyboard.IsKeyPressed(Keyboard.Key.C))
+                    if (Keyboard.IsKeyPressed(Keyboard.Key.C) && !scene.showingGameOverScreen)
                     {
                         if (debugTimer > 0.5f)
                         {

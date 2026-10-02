@@ -35,8 +35,6 @@ public class Ghost : Actor
                 freezeTimer = 0f;
             }
         }
-        // är inte våran implementation bättre optimerad? kolla en if vs att göra beräkning varje gång??
-        //frozenTimer = MathF.Max(frozenTimer - deltaTime, 0.0f);
     }
 
     public override void Create(Scene scene)

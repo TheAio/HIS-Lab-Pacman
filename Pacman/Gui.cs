@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using SFML.System;
+using SFML.Window;
 
 namespace Pacman;
 
@@ -53,7 +54,6 @@ public class Gui : Entity
     
     public override void Destroy(Scene scene)
     {
-        CompareAndSetHighScore(currentScore);
         base.Destroy(scene);
         scene.Events.LoseHealth -= OnLoseHealth;
     }
@@ -69,7 +69,7 @@ public class Gui : Entity
         }
         return false;
     }
-    private int GetHighScore()
+    public int GetHighScore()
     {
         if (File.Exists(highScoreFilePath))
         {
@@ -97,8 +97,8 @@ public class Gui : Entity
         if (currentHealth <= 0)
         {
             DontDestroyOnLoad = false;
-            scene.isGameStarted = false;
-            scene.Loader.Reload();
+            CompareAndSetHighScore(currentScore);
+            scene.showingGameOverScreen = true;
         }
     }
 

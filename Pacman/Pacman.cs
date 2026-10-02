@@ -19,9 +19,7 @@ public class Pacman : Actor
         get
         {
             var bounds = base.Bounds;
-            //bounds.Left += 3;
             bounds.Width = 5;
-            //bounds.Top += 3;
             bounds.Height = 5;
             return bounds;
         }  

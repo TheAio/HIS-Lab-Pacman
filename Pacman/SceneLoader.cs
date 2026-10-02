@@ -33,12 +33,6 @@ public class SceneLoader
         return false;
     }
 
-    /*private void CreateGUI(out Entity created)
-    {
-        Func<Entity> createdGui = () => new Gui();
-        created = createdGui();
-    }*/
-
     public void HandleSceneLoad(Scene scene)
     {
         if (nextScene == "") return;

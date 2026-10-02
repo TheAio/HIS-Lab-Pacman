@@ -1,14 +1,16 @@
 ﻿using System.Runtime.CompilerServices;
 using SFML.Graphics;
+using SFML.System;
+using SFML.Window;
 
 namespace Pacman;
 
 public class Scene
 {
-    //private Entity entity = new Entity("pacman");
     private AssetManager assets = new();
     private SceneLoader sceneLoader = new();
     private EventManager events = new();
+    private Text gameOverText = new();
     
     private List<Entity> entities = new();
     public SceneLoader Loader { get => sceneLoader; }
@@ -17,6 +19,7 @@ public class Scene
 
     private float frozenResetTimer = 1f;
     public bool isGameStarted = false;
+    public bool showingGameOverScreen = false;
 
 
     public void Spawn(Entity entity)
@@ -40,8 +43,11 @@ public class Scene
 
     public void UpdateAll(float deltaTime)
     {
-        Loader.HandleSceneLoad(this);
-        events.UpdateEvents(this);
+        if (!showingGameOverScreen)
+        {
+            Loader.HandleSceneLoad(this);
+            events.UpdateEvents(this);
+        }
 
         if (!isGameStarted)
         {
@@ -60,7 +66,6 @@ public class Scene
 
     public void RenderAll(RenderTarget target)
     {
-        
         for (int i = 0; i < entities.Count;)
         {
             Entity entity = entities[i];
@@ -68,6 +73,11 @@ public class Scene
             if (entity.Dead) entities.RemoveAt(i);
             else i++;
         }
+        if (showingGameOverScreen)
+        {
+            ShowGameOverScreen(target);
+        }
+
     }
 
     public bool FindByType<T>(out T found) where T : Entity
@@ -83,7 +93,30 @@ public class Scene
         found = default(T);
         return false;
     }
-
+    
+    private void ShowGameOverScreen(RenderTarget renderTarget)
+    {
+        showingGameOverScreen = true;
+        renderTarget.Clear(new Color(223, 246, 245));
+        FindByType(out Gui gui);
+        gameOverText.DisplayedString = $"Game Over\nHigh Score:{gui.GetHighScore()}";
+        gameOverText.Position = new Vector2f((renderTarget.GetView().Viewport.Width*100)+(gameOverText.GetGlobalBounds().Width/2),100);
+        gameOverText.Scale = new Vector2f(0.5f, 0.5f);
+        gameOverText.Font = new Font(Assets.LoadFont("pixel-font"));
+        gameOverText.Color = Color.Black;
+        renderTarget.Draw(gameOverText);
+        if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
+        {
+            if (showingGameOverScreen)
+            {
+                showingGameOverScreen = false;
+                isGameStarted = false;
+                Clear();
+                Loader.Reload();
+            }
+        }
+    }
+    
     public IEnumerable<Entity> FindIntersects(FloatRect bounds)
     {
         int lastEntity = entities.Count - 1;

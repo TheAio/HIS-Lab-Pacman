@@ -33,7 +33,7 @@
 - [x] At least one of the bonus features
 	- [x] Animate the ghosts,
 		- [x] and have pacman face in the movement direction
-	- [ ] When ghosts and player is reset to start position, make them invulnerable 
-		- [ ] and unable to move for a set amount of time
-	- [ ] Add a highscore that is shown when the game is lost (health = 0) 
-		- [ ] and is saved between sessions (written to a file)
+	- [x] When ghosts and player is reset to start position, make them invulnerable 
+		- [x] and unable to move for a set amount of time
+	- [x] Add a highscore that is shown when the game is lost (health = 0) 
+		- [x] and is saved between sessions (written to a file)
